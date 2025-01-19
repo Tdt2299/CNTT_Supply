@@ -49,7 +49,7 @@ export const getProductById = async (req, res) => {
     const id = req.params.id;
     const productExist = await Product.findById(id);
     if (!productExist) {
-      return res.status(404).json({ message: "Product not found." });
+      return res.status(404).json({ message: "Không tìm thấy sản phẩm." });
     }
     res.status(200).json(productExist);
   } catch (error) {
@@ -80,8 +80,8 @@ export const deleteProduct = async (req, res) => {
   const { id } = req.params;
   try {
     await Product.findByIdAndDelete(id);
-    res.status(200).json({ message: "Product deleted successfully" });
+    res.status(200).json({ message: "Xóa sản phẩm thành công." });
   } catch (error) {
-    res.status(500).json({ message: "Error deleting product", error });
+    res.status(500).json({ message: "Có lỗi khi xóa sản phẩm", error });
   }
 };
