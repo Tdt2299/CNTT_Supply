@@ -21,7 +21,7 @@ const UpdateCategory = () => {
   };
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/categories")
+    axios.get("https://cntt-supply.onrender.com/api/categories")
       .then((response) => {
         const categoryData = response.data.find((cat) => cat._id === id);
         if (categoryData) {
@@ -38,7 +38,7 @@ const UpdateCategory = () => {
   const submitForm = async (e) => {
     e.preventDefault();
     await axios
-      .put(`http://localhost:8000/api/update/category/${id}`, category)
+      .put(`https://cntt-supply.onrender.com/api/update/category/${id}`, category)
       .then((response) => {
         toast.success(response.data.message, { position: "top-right" });
         navigate("/categories");

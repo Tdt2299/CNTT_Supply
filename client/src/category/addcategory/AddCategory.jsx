@@ -25,7 +25,7 @@ const AddCategory = () => {
     e.preventDefault();
     console.log("Form submitted");  // Thêm dòng này để kiểm tra khi submit
     try {
-      const response = await axios.post("http://localhost:8000/api/category", category);
+      const response = await axios.post("https://cntt-supply.onrender.com/api/category", category);
       toast.success(response.data.message, { position: "top-right" });
       navigate("/categories"); // Điều hướng sau khi thêm thành công
     } catch (error) {

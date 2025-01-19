@@ -9,7 +9,7 @@ const Product = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/products");
+        const response = await axios.get("https://cntt-supply.onrender.com/api/products");
         setProducts(response.data);
       } catch (error) {
         console.log("Error while fetching data", error);

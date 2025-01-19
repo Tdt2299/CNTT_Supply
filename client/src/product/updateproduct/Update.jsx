@@ -29,7 +29,7 @@ const UpdateProduct = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/categories"); // Đường dẫn API lấy danh mục
+        const response = await axios.get("https://cntt-supply.onrender.com/api/categories"); // Đường dẫn API lấy danh mục
         setCategories(response.data); // Lưu danh mục vào state
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -39,7 +39,7 @@ const UpdateProduct = () => {
   }, []);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/products")
+    axios.get("https://cntt-supply.onrender.com/api/products")
       .then((response) => {
         const productData = response.data.find((prod) => prod._id === id);
         if (productData) {
@@ -57,7 +57,7 @@ const UpdateProduct = () => {
   const submitForm = async (e) => {
     e.preventDefault();
     await axios
-      .put(`http://localhost:8000/api/update/product/${id}`, product)
+      .put(`https://cntt-supply.onrender.com/api/update/product/${id}`, product)
       .then((response) => {
         toast.success(response.data.message, { position: "top-right" });
         navigate("/products");

@@ -47,7 +47,7 @@ const AddProduct = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/categories"); // Đường dẫn API lấy danh mục
+        const response = await axios.get("https://cntt-supply.onrender.com/api/categories"); // Đường dẫn API lấy danh mục
         setCategories(response.data); // Lưu danh mục vào state
       } catch (error) {
         console.error("Error fetching categories:", error);

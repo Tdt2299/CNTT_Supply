@@ -10,7 +10,7 @@ const Category = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/categories");
+        const response = await axios.get("https://cntt-supply.onrender.com/api/categories");
         setCategories(response.data);
       } catch (error) {
         console.log("Error while fetching data", error);
