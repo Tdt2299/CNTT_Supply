@@ -117,7 +117,7 @@ const AddProduct = () => {
 
     try {
       // Gửi request tới API để tạo sản phẩm mới
-      const response = await axios.post("http://localhost:8000/api/product", product);
+      const response = await axios.post("https://cntt-supply.onrender.com/api/product", product);
       toast.success(response.data.message, { position: "top-right" });
       navigate("/products");
     } catch (error) {
