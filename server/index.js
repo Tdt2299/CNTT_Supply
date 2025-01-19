@@ -1,3 +1,4 @@
+import path from "path";
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
@@ -12,11 +13,15 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+// Đường dẫn đến thư mục build của frontend
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "build")));
+
 const PORT = process.env.PORT || 7000;
 const MONGOURL = process.env.MONGO_URL;
 
 mongoose
-  .connect(MONGOURL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(MONGOURL)
   .then(() => {
     console.log("Database connected successfully");
     app.listen(PORT, () => {
@@ -26,5 +31,11 @@ mongoose
   .catch((error) => console.log("Error connecting to DB:", error));
 
 // Routes
-app.use("/api", productRoutes); // Product routes
-app.use("/api", categoryRoutes); // Category routes
+app.use("/api", productRoutes);
+app.use("/api", categoryRoutes);
+
+app.use(express.static('build'))
+// Route để phục vụ frontend
+app.get("/", (req, res) => {
+  res.sendFile("/index.html");
+});
