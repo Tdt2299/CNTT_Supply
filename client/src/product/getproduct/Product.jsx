@@ -20,7 +20,7 @@ const Product = () => {
 
   const deleteProduct = async (productId) => {
     await axios
-      .delete(`http://localhost:8000/api/delete/product/${productId}`)
+      .delete(`https://cntt-supply.onrender.com/api/delete/product/${productId}`)
       .then((response) => {
         setProducts((prevProduct) => prevProduct.filter((product) => product._id !== productId));
         toast.success(response.data.message, { position: "top-right" });

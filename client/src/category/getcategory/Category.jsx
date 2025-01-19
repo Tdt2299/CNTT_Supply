@@ -21,7 +21,7 @@ const Category = () => {
 
   const deleteCategory = async (categoryId) => {
     await axios
-      .delete(`http://localhost:8000/api/delete/category/${categoryId}`)
+      .delete(`https://cntt-supply.onrender.com/api/delete/category/${categoryId}`)
       .then((response) => {
         setCategories((prevCategory) => prevCategory.filter((category) => category._id !== categoryId));
         toast.success(response.data.message, { position: "top-right" });
