@@ -9,8 +9,8 @@ const Home = () => {
 
       {/* Main Content */}
       <main style={styles.main}>
-        <h1>Welcome to the Home Page</h1>
-        <p>Click on the navigation links above to explore Products or Categories.</p>
+        <h1>Chào mừng đến với Trang chủ</h1>
+        <p>Nhấp vào các liên kết điều hướng ở trên để khám phá Sản phẩm hoặc Danh mục.</p>
       </main>
     </div>
   );
