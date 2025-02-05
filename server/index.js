@@ -36,6 +36,6 @@ app.use("/api", categoryRoutes);
 
 app.use(express.static('build'))
 // Route để phục vụ frontend
-app.get("/", (req, res) => {
-  res.sendFile("/index.html");
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
