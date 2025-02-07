@@ -6,12 +6,18 @@ import dotenv from "dotenv";
 import cors from "cors";
 import productRoutes from "./routes/productRoute.js";
 import categoryRoutes from "./routes/categoryRoute.js";
+import authRoutes from "./routes/authRoutes.js"
+import userRoutes from "./routes/userRoutes.js"
 
 dotenv.config();
 
 const app = express();
 app.use(bodyParser.json());
+
+// Middleware
 app.use(cors());
+app.use(express.json());
+
 
 // Đường dẫn đến thư mục build của frontend
 const __dirname = path.resolve();
@@ -32,7 +38,14 @@ mongoose
 
 // Routes
 app.use("/api", productRoutes);
-app.use("/api", categoryRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 
 app.use(express.static('build'))
 // Route để phục vụ frontend
