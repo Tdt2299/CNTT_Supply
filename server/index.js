@@ -37,7 +37,7 @@ mongoose
   .catch((error) => console.log("Error connecting to DB:", error));
 
 // Routes
-app.use("/api", productRoutes);
+app.use("/api", productRoutes, categoryRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 
