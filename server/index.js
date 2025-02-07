@@ -7,7 +7,7 @@ import cors from "cors";
 import productRoutes from "./routes/productRoute.js";
 import categoryRoutes from "./routes/categoryRoute.js";
 import authRoutes from "./routes/authRoutes.js"
-import userRoutes from "./routes/userRoutes.js"
+// import userRoutes from "./routes/userRoutes.js"
 
 dotenv.config();
 
