@@ -1,5 +1,5 @@
 import express from "express";
-import loginUser from "../controllers/authController.js"; // Dùng dấu {}
+import { loginUser } from "../controllers/authController.js"; // Dùng dấu {}
 
 const router = express.Router();
 
