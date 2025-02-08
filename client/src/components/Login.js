@@ -1,23 +1,30 @@
-import { useState, useContext, useRef } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { users } from "../data/users";
-import ReCAPTCHA from "react-google-recaptcha";
+// import ReCAPTCHA from "react-google-recaptcha";
 import "../App.css";
-
-const RECAPTCHA_SITE_KEY = "6LfE3tAqAAAAAHkIT7jXmA9JU1Drs9tj5xTcjga-";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [captchaValue, setCaptchaValue] = useState(null);
-  const captchaRef = useRef(null);
+  // const [captchaValue, setCaptchaValue] = useState(null);
+  
+  // const captchaRef = useRef(null);
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
-  // Validate form
+  // Sử dụng environment variable thay vì hardcode
+  // const RECAPTCHA_SITE_KEY = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
+
+  // useEffect(() => {
+  //   // Log để debug reCAPTCHA
+  //   console.log("RECAPTCHA_SITE_KEY:", RECAPTCHA_SITE_KEY);
+  //   console.log("Current domain:", window.location.hostname);
+  // }, []);
+
   const validateForm = () => {
     if (!username.trim()) {
       setError("Vui lòng nhập tên đăng nhập!");
@@ -27,14 +34,13 @@ function Login() {
       setError("Vui lòng nhập mật khẩu!");
       return false;
     }
-    if (!captchaValue) {
-      setError("Vui lòng xác thực Captcha!");
-      return false;
-    }
+    // if (!captchaValue) {
+    //   setError("Vui lòng xác thực Captcha!");
+    //   return false;
+    // }
     return true;
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -43,10 +49,10 @@ function Login() {
 
     try {
       setIsLoading(true);
-
+      
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1000));
-
+      
       const user = users.find(
         (u) => u.username === username && u.password === password
       );
@@ -61,33 +67,32 @@ function Login() {
         navigate("/home");
       } else {
         setError("Tên đăng nhập hoặc mật khẩu không đúng!");
-        captchaRef.current.reset();
-        setCaptchaValue(null);
+        // captchaRef.current?.reset();
+        // setCaptchaValue(null);
       }
     } catch (err) {
+      console.error("Login error:", err);
       setError("Có lỗi xảy ra. Vui lòng thử lại sau!");
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Handle captcha change
-  const handleCaptchaChange = (value) => {
-    setCaptchaValue(value);
-    setError("");
-  };
+  // const handleCaptchaChange = (value) => {
+  //   // console.log("Captcha value received:", value ? "yes" : "no");
+  //   // setCaptchaValue(value);
+  //   setError("");
+  // };
 
-  // Handle key press
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSubmit(e);
-    }
-  };
+  // const handleCaptchaError = (err) => {
+  //   console.error("reCAPTCHA Error:", err);
+  //   setError("Có lỗi xảy ra với xác thực. Vui lòng tải lại trang!");
+  //   // setCaptchaValue(null);
+  // };
 
-  // Handle input change
   const handleInputChange = (e, setter) => {
     setter(e.target.value);
-    setError(""); // Clear error when user types
+    setError("");
   };
 
   return (
@@ -105,7 +110,6 @@ function Login() {
             type="text"
             value={username}
             onChange={(e) => handleInputChange(e, setUsername)}
-            onKeyPress={handleKeyPress}
             required
             placeholder="Điền tên đăng nhập"
             disabled={isLoading}
@@ -120,7 +124,6 @@ function Login() {
             type="password"
             value={password}
             onChange={(e) => handleInputChange(e, setPassword)}
-            onKeyPress={handleKeyPress}
             required
             placeholder="Điền mật khẩu"
             disabled={isLoading}
@@ -128,16 +131,22 @@ function Login() {
           />
         </div>
 
-        <div className="captcha-container">
+        {/* <div className="captcha-container">
           <ReCAPTCHA
             ref={captchaRef}
             sitekey={RECAPTCHA_SITE_KEY}
             onChange={handleCaptchaChange}
+            onError={handleCaptchaError}
+            onExpired={() => {
+              console.log("Captcha expired");
+              setCaptchaValue(null);
+            }}
+            hl="vi"
           />
-        </div>
+        </div> */}
 
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           disabled={isLoading}
           className={isLoading ? 'loading' : ''}
         >
