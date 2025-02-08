@@ -32,7 +32,7 @@ function Login() {
       // Chuyển hướng đến trang home
       navigate("/home");
     } else {
-      setError("Invalid username or password");
+      setError("Tên đăng nhập hoặc mật khẩu không đúng!");
     }
   };
 
@@ -65,12 +65,12 @@ function Login() {
         <button type="submit">Đăng nhập</button>
       </form>
       
-      {/* Thêm thông tin đăng nhập mẫu */}
+      {/* Thêm thông tin đăng nhập mẫu
       <div style={{ marginTop: '20px', textAlign: 'center' }}>
         <p>Tài khoản demo</p>
         <p>Admin - Tên đăng nhập: admin, Mật khẩu: cntt@115</p>
         <p>User - Tên đăng nhập: user, Mật khẩu: user123</p>
-      </div>
+      </div> */}
     </div>
   );
 }
