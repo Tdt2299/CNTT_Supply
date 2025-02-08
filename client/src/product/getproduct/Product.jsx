@@ -6,6 +6,12 @@ import toast from "react-hot-toast";
 import Header from "../../components/Header"; // Import Header component
 const Product = () => {
   const [products, setProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(""); // State mới cho tìm kiếm
+
+  // Lọc sản phẩm dựa trên searchTerm
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,56 +38,70 @@ const Product = () => {
 
   return (
     <>
-    <Header />
-    <div className="productTable">
-      <Link to="/add-product" type="button" class="btn btn-primary">
-        Thêm sản phẩm <i class="fa-solid fa-product-plus"></i>
-      </Link>
-    
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">Mã sản phẩm</th>
-            <th scope="col">Tên sản phẩm</th>
-            <th scope="col">Nhóm sản phẩm</th>
-            <th scope="col">Số lượng</th>
-            <th scope="col">Giá tiền</th>
-            <th scope="col">Chức năng</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => {
-            return (
-              <tr>
-                <td>{product.key}</td>
-                <td>{product.name}</td>
-                {/* <td>{product.category} </td> */}
-                <td>{product.category?.name || "N/A"}</td>
-                <td>{product.quantity} </td>
-                <td>{product.price}</td>
-                <td className="actionButtons">
-                  <Link
-                    to={`/update/product/` + product._id}
-                    type="button"
-                    class="btn btn-info"
-                  >
-                    <i class="fa-solid fa-pen-to-square"></i>
-                  </Link>
+      <Header />
+      <div className="productTable">
+        <h3>Danh sách sản phẩm</h3>
+        <div className="table-controls">
+          <div className="left-controls">
+          <Link to="/add-product" type="button" class="btn btn-primary">
+            Thêm sản phẩm <i class="fa-solid fa-product-plus"></i>
+          </Link>
+          </div>
+          {/* Thêm ô tìm kiếm */}
+          <div className="right-controls">
+            <input
+              type="text"
+              className="form-control search-input"
+              placeholder="Tìm kiếm sản phẩm..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </div>
+        <table className="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Mã sản phẩm</th>
+              <th scope="col">Tên sản phẩm</th>
+              <th scope="col">Nhóm sản phẩm</th>
+              <th scope="col">Số lượng</th>
+              <th scope="col">Giá tiền (VNĐ)</th>
+              <th scope="col">Chức năng</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredProducts.map((product) => {
+              return (
+                <tr>
+                  <td>{product.key}</td>
+                  <td>{product.name}</td>
+                  {/* <td>{product.category} </td> */}
+                  <td>{product.category?.name || "N/A"}</td>
+                  <td>{product.quantity} </td>
+                  <td>{product.price}</td>
+                  <td className="actionButtons">
+                    <Link
+                      to={`/update/product/` + product._id}
+                      type="button"
+                      class="btn btn-info"
+                    >
+                      <i class="fa-solid fa-pen-to-square"></i>
+                    </Link>
 
-                  <button
-                    onClick={() => deleteProduct(product._id)}
-                    type="button"
-                    class="btn btn-danger"
-                  >
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+                    <button
+                      onClick={() => deleteProduct(product._id)}
+                      type="button"
+                      class="btn btn-danger"
+                    >
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };
