@@ -1,17 +1,28 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { users } from "../data/users";
+import ReCAPTCHA from "react-google-recaptcha";
+//6LdRvNAqAAAAAIKNQLESCPcUnGGCYv4nBEZOshC0
 import "../App.css"
+
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [captchaValue, setCaptchaValue] = useState(null);
+  const captchaRef = useRef(null);
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Kiểm tra captcha
+    if (!captchaValue) {
+      setError("Vui lòng xác thực Captcha!");
+      return;
+    }
 
     // Kiểm tra thông tin đăng nhập
     const user = users.find(
@@ -19,21 +30,24 @@ function Login() {
     );
 
     if (user) {
-      // Tạo token giả (trong thực tế, token sẽ được tạo từ backend)
       const fakeToken = btoa(`${username}:${password}`);
-
-      // Lưu thông tin đăng nhập
       login(fakeToken, {
         id: user.id,
         username: user.username,
         role: user.role
       });
-
-      // Chuyển hướng đến trang home
       navigate("/home");
     } else {
       setError("Tên đăng nhập hoặc mật khẩu không đúng!");
+      // Reset captcha khi đăng nhập thất bại
+      captchaRef.current.reset();
+      setCaptchaValue(null);
     }
+  };
+
+  const handleCaptchaChange = (value) => {
+    setCaptchaValue(value);
+    setError(""); // Xóa thông báo lỗi khi người dùng xác thực captcha
   };
 
   return (
@@ -62,12 +76,17 @@ function Login() {
             placeholder="Điền mật khẩu"
           />
         </div>
+        <div className="captcha-container">
+          <ReCAPTCHA
+            ref={captchaRef}
+            sitekey="6LdRvNAqAAAAAIKNQLESCPcUnGGCYv4nBEZOshC0" // Thay thế bằng site key của bạn
+            onChange={handleCaptchaChange}
+          />
+        </div>
         <button type="submit">Đăng nhập</button>
       </form>
-
     </div>
   );
 }
-
 
 export default Login;

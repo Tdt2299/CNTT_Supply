@@ -48,7 +48,7 @@ body {
 }
 
 .login-container div {
-  margin-bottom: 1.8rem;
+  margin-bottom: 0.5rem;
 }
 
 .login-container label {
@@ -233,4 +233,16 @@ body {
     width: 100%;
     justify-content: center;
   }
+}
+
+.captcha-container {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.error {
+  color: red;
+  margin-bottom: 10px;
+  text-align: center;
 }
