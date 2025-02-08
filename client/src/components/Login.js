@@ -39,8 +39,8 @@ function Login() {
   return (
     <div className="login-container">
       <form onSubmit={handleSubmit}>
-        <h1>Quản lý vật tư tiêu hao CNTT</h1>
-        <h2>Đăng nhập</h2>
+        <h3>Quản lý vật tư tiêu hao CNTT</h3>
+        <h4>Đăng nhập</h4>
         {error && <div className="error">{error}</div>}
         <div>
           <label>Tên đăng nhập:</label>

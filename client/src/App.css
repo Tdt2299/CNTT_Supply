@@ -19,17 +19,17 @@ body {
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 650px;
+  max-width: 550px;
 }
 
-.login-container h2 {
+.login-container h4 {
   color: #2c3e50;
   font-size: 2.2rem;
   margin-bottom: 2rem;
   text-align: center;
 }
 
-.login-container h1 {
+.login-container h3 {
   color: #2c3e50;
   font-size: 2.2rem;
   margin-bottom: 2rem;
