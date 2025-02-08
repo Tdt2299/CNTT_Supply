@@ -39,7 +39,7 @@ mongoose
 // Routes
 app.use("/api", productRoutes, categoryRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
+// app.use('/api/users', userRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
