@@ -79,7 +79,7 @@ function Login() {
         <div className="captcha-container">
           <ReCAPTCHA
             ref={captchaRef}
-            sitekey="6LdRvNAqAAAAAIKNQLESCPcUnGGCYv4nBEZOshC0" // Thay thế bằng site key của bạn
+            sitekey="6LeC19AqAAAAANyIugJheEBlQuj7yVInxZH8gbyG" // Thay thế bằng site key của bạn
             onChange={handleCaptchaChange}
           />
         </div>
